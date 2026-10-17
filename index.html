@@ -1,337 +1,199 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hour-to-Time Calculator</title>
-    <style>
-      :root {
-        --navy: #173c71;
-        --blue: #2563eb;
-        --bg: #f3f6fb;
-        --text: #172033;
-        --muted: #68758a;
-        --border: #dce3ee;
-        --white: #ffffff;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        padding: 24px;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, #eef4ff, #f8fafc 55%, #eaf0fb);
-        color: var(--text);
-        font-family:
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-      }
-      .app {
-        width: min(100%, 460px);
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-radius: 22px;
-        padding: 28px;
-        box-shadow: 0 18px 55px rgba(23, 60, 113, 0.12);
-      }
-      .header {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 24px;
-      }
-      .icon {
-        width: 52px;
-        height: 52px;
-        flex: 0 0 52px;
-        display: grid;
-        place-items: center;
-        border-radius: 15px;
-        background: var(--navy);
-        color: white;
-        font-size: 26px;
-      }
-      h1 {
-        margin: 0 0 5px;
-        font-size: 1.35rem;
-        line-height: 1.25;
-      }
-      .subtitle {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-      .field {
-        margin: 18px 0;
-      }
-      label {
-        display: block;
-        margin-bottom: 8px;
-        font-size: 0.92rem;
-        font-weight: 650;
-      }
-      input {
-        width: 100%;
-        min-height: 48px;
-        padding: 12px 14px;
-        border: 1px solid var(--border);
-        border-radius: 11px;
-        background: #fff;
-        color: var(--text);
-        font: inherit;
-        outline: none;
-        transition:
-          border-color 0.15s,
-          box-shadow 0.15s;
-      }
-      input:focus {
-        border-color: var(--blue);
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
-      }
-      .hint {
-        margin: 7px 0 0;
-        color: var(--muted);
-        font-size: 0.8rem;
-      }
-      .quick-actions {
-        display: flex;
-        gap: 9px;
-        margin: 8px 0 20px;
-      }
-      button {
-        min-height: 44px;
-        padding: 10px 14px;
-        border: 0;
-        border-radius: 11px;
-        font: inherit;
-        font-weight: 650;
-        cursor: pointer;
-      }
-      .secondary {
-        flex: 1;
-        background: #edf2fa;
-        color: var(--navy);
-      }
-      .secondary:hover {
-        background: #e0e9f8;
-      }
-      .result {
-        margin-top: 22px;
-        padding: 24px 16px;
-        text-align: center;
-        border-radius: 16px;
-        background: #f1f5fb;
-        border: 1px solid #e2eaf6;
-      }
-      .result-label {
-        color: var(--muted);
-        font-size: 0.88rem;
-        margin-bottom: 8px;
-      }
-      .result-time {
-        color: var(--navy);
-        font-size: clamp(2rem, 8vw, 2.7rem);
-        line-height: 1.15;
-        font-weight: 800;
-        letter-spacing: -1px;
-        overflow-wrap: anywhere;
-      }
-      .result-date {
-        margin-top: 9px;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-      .error {
-        min-height: 1.2em;
-        margin-top: 10px;
-        color: #b42318;
-        font-size: 0.85rem;
-      }
-      .footer {
-        margin-top: 20px;
-        text-align: center;
-        color: var(--muted);
-        font-size: 0.78rem;
-      }
-      @media (max-width: 480px) {
-        body {
-          padding: 14px;
-        }
-        .app {
-          padding: 22px 18px;
-          border-radius: 18px;
-        }
-        h1 {
-          font-size: 1.2rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="app">
-      <header class="header">
-        <div class="icon" aria-hidden="true">◷</div>
-        <div>
-          <h1>Hour-to-Time Calculator</h1>
-          <p class="subtitle">
-            Instantly calculate a future time in 12-hour format
-          </p>
-        </div>
-      </header>
-
-      <div class="field">
-        <label for="startTime">Starting time</label>
-        <input id="startTime" type="time" required />
-        <p class="hint">
-          Defaults to your device's current local time. Change it whenever you
-          want.
-        </p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173c71">
+  <meta name="description" content="A simple offline-ready hour-to-time calculator.">
+  <title>Hour-to-Time Calculator</title>
+  <link rel="manifest" href="/manifest.json">
+  <style>
+    :root { --navy:#173c71; --blue:#2563eb; --text:#172033; --muted:#68758a; --border:#dce3ee; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; min-height:100vh; padding:24px; display:grid; place-items:center;
+      background:linear-gradient(135deg,#eef4ff,#f8fafc 55%,#eaf0fb);
+      color:var(--text); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    .app { width:min(100%,460px); background:#fff; border:1px solid var(--border); border-radius:22px; padding:28px; box-shadow:0 18px 55px rgba(23,60,113,.12); }
+    .header { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+    .icon { width:52px;height:52px;flex:0 0 52px;display:grid;place-items:center;border-radius:15px;background:var(--navy);color:white;font-size:26px; }
+    h1 { margin:0 0 5px;font-size:1.35rem;line-height:1.25; }
+    .subtitle { margin:0;color:var(--muted);font-size:.9rem; }
+    .field { margin:18px 0; }
+    label { display:block;margin-bottom:8px;font-size:.92rem;font-weight:650; }
+    input { width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--border);border-radius:11px;background:#fff;color:var(--text);font:inherit;outline:none; }
+    input:focus { border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.13); }
+    .hint { margin:7px 0 0;color:var(--muted);font-size:.8rem; }
+    .actions { display:flex;gap:9px;margin:12px 0 4px; }
+    button { min-height:44px;padding:10px 14px;border:0;border-radius:11px;font:inherit;font-weight:650;cursor:pointer; }
+    button:focus-visible { outline:3px solid rgba(37,99,235,.35);outline-offset:2px; }
+    .secondary { flex:1;background:#edf2fa;color:var(--navy); }
+    .secondary:hover { background:#e0e9f8; }
+    .result { margin-top:22px;padding:24px 16px;text-align:center;border-radius:16px;background:#f1f5fb;border:1px solid #e2eaf6; }
+    .result-label { color:var(--muted);font-size:.88rem;margin-bottom:8px; }
+    .result-time { color:var(--navy);font-size:clamp(2rem,8vw,2.7rem);line-height:1.15;font-weight:800;letter-spacing:-1px;overflow-wrap:anywhere; }
+    .result-date { margin-top:9px;color:var(--muted);font-size:.9rem; }
+    .error { min-height:1.2em;margin-top:10px;color:#b42318;font-size:.85rem; }
+    .cache-status { margin-top:14px;padding:10px 12px;border-radius:10px;background:#f7f9fc;color:var(--muted);font-size:.82rem;line-height:1.4; }
+    .footer { margin-top:16px;text-align:center;color:var(--muted);font-size:.78rem; }
+    @media(max-width:480px) { body{padding:14px}.app{padding:22px 18px;border-radius:18px}h1{font-size:1.2rem} }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="icon" aria-hidden="true">◷</div>
+      <div>
+        <h1>Hour-to-Time Calculator</h1>
+        <p class="subtitle">Instantly calculate a future time in 12-hour format</p>
       </div>
+    </header>
 
-      <div class="field">
-        <label for="hours">Hours to add</label>
-        <input
-          id="hours"
-          type="number"
-          min="0"
-          max="1000000"
-          step="1"
-          value="0"
-          placeholder="e.g. 20"
-        />
-      </div>
+    <div class="field">
+      <label for="startTime">Starting time</label>
+      <input id="startTime" type="time" required>
+      <p class="hint">Defaults to your device's current local time. You can change it anytime.</p>
+    </div>
+    <div class="field">
+      <label for="hours">Hours to add</label>
+      <input id="hours" type="number" min="0" max="1000000" step="1" value="0" placeholder="e.g. 20">
+    </div>
+    <div class="field">
+      <label for="minutes">Extra minutes (optional)</label>
+      <input id="minutes" type="number" min="0" max="59" step="1" value="0" placeholder="e.g. 30">
+    </div>
 
-      <div class="field">
-        <label for="minutes">Extra minutes (optional)</label>
-        <input
-          id="minutes"
-          type="number"
-          min="0"
-          max="59"
-          step="1"
-          value="0"
-          placeholder="e.g. 30"
-        />
-      </div>
+    <div class="actions">
+      <button class="secondary" type="button" id="useNow">Use current time</button>
+      <button class="secondary" type="button" id="reset">Reset values</button>
+    </div>
+    <div class="error" id="error" role="alert" aria-live="polite"></div>
 
-      <div class="quick-actions">
-        <button class="secondary" type="button" id="useNow">
-          Use current time
-        </button>
-        <button class="secondary" type="button" id="reset">Reset</button>
-      </div>
+    <section class="result" aria-live="polite">
+      <div class="result-label">Resulting time</div>
+      <div class="result-time" id="resultTime">—</div>
+      <div class="result-date" id="resultDate">Adjust the inputs to calculate instantly.</div>
+    </section>
 
-      <div class="error" id="error" role="alert" aria-live="polite"></div>
+    <div class="actions">
+      <button class="secondary" type="button" id="refreshCache">Refresh app cache</button>
+    </div>
+    <div class="cache-status" id="cacheStatus" role="status" aria-live="polite">
+      Offline readiness will be checked when the app loads.
+    </div>
+    <div class="footer">Instant calculation · Offline-ready after the first successful online load</div>
+  </main>
 
-      <section class="result" aria-live="polite">
-        <div class="result-label">Resulting time</div>
-        <div class="result-time" id="resultTime">—</div>
-        <div class="result-date" id="resultDate">
-          Adjust the inputs to calculate instantly.
-        </div>
-      </section>
-      <div class="footer">
-        Updates automatically as you change any input · Works offline
-      </div>
-    </main>
+  <script>
+    const startTimeInput = document.getElementById("startTime");
+    const hoursInput = document.getElementById("hours");
+    const minutesInput = document.getElementById("minutes");
+    const resultTime = document.getElementById("resultTime");
+    const resultDate = document.getElementById("resultDate");
+    const error = document.getElementById("error");
+    const cacheStatus = document.getElementById("cacheStatus");
 
-    <script>
-      const startTimeInput = document.getElementById("startTime");
-      const hoursInput = document.getElementById("hours");
-      const minutesInput = document.getElementById("minutes");
-      const resultTime = document.getElementById("resultTime");
-      const resultDate = document.getElementById("resultDate");
-      const error = document.getElementById("error");
-
-      function localTimeValue(date = new Date()) {
-        return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    function localTimeValue(date = new Date()) {
+      return `${String(date.getHours()).padStart(2,"0")}:${String(date.getMinutes()).padStart(2,"0")}`;
+    }
+    function calculate() {
+      error.textContent = "";
+      const startValue = startTimeInput.value;
+      const hoursText = hoursInput.value.trim();
+      const minutesText = minutesInput.value.trim();
+      if (!startValue || hoursText === "") {
+        resultTime.textContent = "—";
+        resultDate.textContent = "Enter a starting time and number of hours.";
+        error.textContent = !startValue ? "Please choose a starting time." : "Please enter the number of hours.";
+        return;
       }
-
-      function setCurrentTime() {
-        startTimeInput.value = localTimeValue();
-        calculate();
+      const hours = Number(hoursText);
+      const minutes = minutesText === "" ? 0 : Number(minutesText);
+      if (!Number.isFinite(hours) || hours < 0 || hours > 1000000 || !Number.isInteger(hours)) {
+        resultTime.textContent = "—"; resultDate.textContent = "Check your hours value.";
+        error.textContent = "Hours must be a whole number between 0 and 1,000,000."; return;
       }
-
-      function calculate() {
-        error.textContent = "";
-
-        const startValue = startTimeInput.value;
-        const hoursText = hoursInput.value.trim();
-        const minutesText = minutesInput.value.trim();
-
-        if (!startValue || hoursText === "") {
-          resultTime.textContent = "—";
-          resultDate.textContent = "Enter a starting time and number of hours.";
-          if (!startValue) error.textContent = "Please choose a starting time.";
-          else error.textContent = "Please enter the number of hours.";
-          return;
-        }
-
-        const hours = Number(hoursText);
-        const minutes = minutesText === "" ? 0 : Number(minutesText);
-
-        if (
-          !Number.isFinite(hours) ||
-          hours < 0 ||
-          hours > 1000000 ||
-          !Number.isInteger(hours)
-        ) {
-          resultTime.textContent = "—";
-          resultDate.textContent = "Check your hours value.";
-          error.textContent =
-            "Hours must be a whole number between 0 and 1,000,000.";
-          return;
-        }
-
-        if (!Number.isInteger(minutes) || minutes < 0 || minutes > 59) {
-          resultTime.textContent = "—";
-          resultDate.textContent = "Check your extra minutes value.";
-          error.textContent =
-            "Extra minutes must be a whole number from 0 to 59.";
-          return;
-        }
-
-        const [startHour, startMinute] = startValue.split(":").map(Number);
-        const totalMinutes =
-          startHour * 60 + startMinute + hours * 60 + minutes;
-        const dayOffset = Math.floor(totalMinutes / 1440);
-        const minuteOfDay = ((totalMinutes % 1440) + 1440) % 1440;
-        const outputHour24 = Math.floor(minuteOfDay / 60);
-        const outputMinute = minuteOfDay % 60;
-        const suffix = outputHour24 >= 12 ? "PM" : "AM";
-        const outputHour12 = outputHour24 % 12 || 12;
-
-        resultTime.textContent = `${outputHour12}:${String(outputMinute).padStart(2, "0")} ${suffix}`;
-        resultDate.textContent =
-          dayOffset === 0
-            ? "Same day"
-            : dayOffset === 1
-              ? "Tomorrow"
-              : `${dayOffset} days later`;
+      if (!Number.isInteger(minutes) || minutes < 0 || minutes > 59) {
+        resultTime.textContent = "—"; resultDate.textContent = "Check your extra minutes value.";
+        error.textContent = "Extra minutes must be a whole number from 0 to 59."; return;
       }
+      const [startHour,startMinute] = startValue.split(":").map(Number);
+      const totalMinutes = startHour*60 + startMinute + hours*60 + minutes;
+      const dayOffset = Math.floor(totalMinutes/1440);
+      const minuteOfDay = ((totalMinutes%1440)+1440)%1440;
+      const hour24 = Math.floor(minuteOfDay/60);
+      const minute = minuteOfDay%60;
+      resultTime.textContent = `${hour24%12||12}:${String(minute).padStart(2,"0")} ${hour24>=12?"PM":"AM"}`;
+      resultDate.textContent = dayOffset===0 ? "Same day" : dayOffset===1 ? "Tomorrow" : `${dayOffset} days later`;
+    }
+    function setCurrentTime() { startTimeInput.value = localTimeValue(); calculate(); }
+    startTimeInput.addEventListener("input",calculate);
+    startTimeInput.addEventListener("change",calculate);
+    hoursInput.addEventListener("input",calculate);
+    minutesInput.addEventListener("input",calculate);
+    document.getElementById("useNow").addEventListener("click",setCurrentTime);
+    document.getElementById("reset").addEventListener("click",() => {
+      startTimeInput.value = localTimeValue();
+      hoursInput.value = "0";
+      minutesInput.value = "0";
+      calculate();
+    });
 
-      startTimeInput.addEventListener("input", calculate);
-      startTimeInput.addEventListener("change", calculate);
-      hoursInput.addEventListener("input", calculate);
-      minutesInput.addEventListener("input", calculate);
+    async function refreshAppCache() {
+      const button = document.getElementById("refreshCache");
+      button.disabled = true;
+      cacheStatus.textContent = "Updating the offline app cache…";
+      try {
+        if (!("serviceWorker" in navigator)) {
+          throw new Error("This browser does not support service workers. Use a modern browser over HTTPS.");
+        }
+        if (!("caches" in window)) throw new Error("This browser does not support the Cache API.");
+        let registration = await navigator.serviceWorker.getRegistration("/");
+        if (!registration) registration = await navigator.serviceWorker.register("/sw.js");
+        await registration.update();
+        const worker = registration.active || registration.waiting || registration.installing;
+        if (worker && worker.state === "installing") {
+          await new Promise((resolve, reject) => {
+            worker.addEventListener("statechange", () => {
+              if (worker.state === "activated") resolve();
+              if (worker.state === "redundant") reject(new Error("Service worker installation failed."));
+            });
+          });
+        }
+        const cache = await caches.open("time-imazine-app-v1");
+        await cache.addAll(["/", "/index.html", "/manifest.json"]);
+        cacheStatus.textContent = "App cache refreshed successfully. After this, the app shell can open offline in this browser.";
+      } catch (e) {
+        cacheStatus.textContent = "Could not refresh cache: " + (e.message || "Please check your connection and HTTPS setup.");
+      } finally {
+        button.disabled = false;
+      }
+    }
+    document.getElementById("refreshCache").addEventListener("click",refreshAppCache);
 
-      document
-        .getElementById("useNow")
-        .addEventListener("click", setCurrentTime);
-      document.getElementById("reset").addEventListener("click", () => {
-        startTimeInput.value = localTimeValue();
-        hoursInput.value = "20";
-        minutesInput.value = "0";
-        calculate();
-      });
+    async function registerOfflineSupport() {
+      if (!("serviceWorker" in navigator)) {
+        cacheStatus.textContent = "Offline caching is not supported by this browser, or the site is not served over HTTPS/localhost.";
+        return;
+      }
+      try {
+        const registration = await navigator.serviceWorker.register("/sw.js");
+        await navigator.serviceWorker.ready;
+        cacheStatus.textContent = "Offline support is enabled. Use “Refresh app cache” after publishing changes.";
+        // Ensure the core app shell is cached on the first successful online visit.
+        if (navigator.onLine) {
+          const cache = await caches.open("time-imazine-app-v1");
+          await cache.addAll(["/", "/index.html", "/manifest.json"]);
+        }
+      } catch (e) {
+        cacheStatus.textContent = "Offline setup could not finish. Open the site online over HTTPS, then press “Refresh app cache”.";
+      }
+    }
 
-      setCurrentTime();
-    </script>
-  </body>
+    startTimeInput.value = localTimeValue();
+    calculate();
+    registerOfflineSupport();
+  </script>
+</body>
 </html>
